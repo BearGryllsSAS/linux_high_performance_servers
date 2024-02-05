@@ -32,7 +32,7 @@ file(GLOB SRC_LIST ${PROJECT_SOURCE_DIR}/src/*.cpp)
 # string(REPLACE .c .out app ${SRC_LIST}) --- 错误
 
 # 指定要链接的动态库的路径
-link_directories(${PROJECT_SOURCE_DIR}/lib)
+# link_directories(${PROJECT_SOURCE_DIR}/lib)
 
 # 遍历源文件列表，为每个文件生成一个对应的可执行程序
 foreach(source_file ${SRC_LIST})
@@ -41,7 +41,7 @@ foreach(source_file ${SRC_LIST})
     # 添加可执行程序并关联源文件
     add_executable(${app}.out ${source_file})
     # 连接动态库
-    target_link_libraries(${app}.out wrap pthread)
+    # target_link_libraries(${app}.out wrap pthread)
 endforeach()
 
 # get_filename_component(app ${SRC_LIST} NAME_WE)
