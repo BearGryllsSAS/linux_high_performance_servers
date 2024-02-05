@@ -14,7 +14,7 @@ set(DCMAKE_CXX_STANDARD 11)
 project(highPerformanceServers)
 
 # 指定可执行程序的输出路径---宏EXECUTABLE_OUTPUT_PATH (若路径不存在则自动生成)
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/out)
 
 # 搜索文件一---使用aux_source_directory 命令可以查找某个路径下的所有源文件
 # 搜索 src 目录下的源文件---aux_source_directory(${CMAKE_CURRENT_SOURCE_DIR}/src SRC_LIST)
