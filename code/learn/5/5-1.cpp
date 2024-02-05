@@ -1,0 +1,39 @@
+#include <cstdio>
+#include <iostream>
+using namespace std;
+
+/*
+ *  判断机器字节序（不知道什么原理）
+*/
+
+void byteorder() {
+
+    union {
+    
+        short value;
+        char union_bytes[sizeof(short)];
+    } test;
+
+    test.value = 0x0102;
+
+    if ((test.union_bytes[0] == 1) && (test.union_bytes[1]) == 2) {
+    
+        printf("big endian\n");
+    }
+    else if ((test.union_bytes[0] == 2) && (test.union_bytes[1] == 1)) {
+
+        printf("little endian\n");
+    }
+    else {
+
+        printf("unknowm...\n");
+    }
+}
+
+
+int main() {
+
+    byteorder();    
+
+    return 0;
+}
