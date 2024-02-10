@@ -7,10 +7,10 @@
 
 #define BUFFER_SIZE 512
 
-int main(int argc, char* argv[]) {
-
-    if (argc < 4) {
-
+int main(int argc, char* argv[]) 
+{
+    if (argc != 3) 
+    {
         printf("usage: %s ip_address port_number senbuf_len\n", basename(argv[0]));
 
         return 1;
@@ -35,12 +35,12 @@ int main(int argc, char* argv[]) {
     printf("the tcp sen buffer size after setting is %d\n", sendbuf);
 
     int ret = connect(sock, (struct sockaddr*)&server_ddress, sizeof(server_ddress));
-    if (ret < 0) {
-
+    if (ret < 0) 
+    {
         printf("connection failed\n");
     }
-    else {
-
+    else
+    {
         char buffer[BUFFER_SIZE];
 
         memset(&buffer, 'a', sizeof(buffer));

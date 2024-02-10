@@ -7,17 +7,17 @@
 
 static bool stop = false;
 
-static void handle_term(int sig) {
-
+static void handle_term(int sig) 
+{
     stop = true;
 }
 
-int main(int argc, char* argv[]) {
-
+int main(int argc, char* argv[]) 
+{
     signal(SIGTERM, handle_term);
 
-    if (argc < 4) {
-
+    if (argc != 4) 
+    {
         printf("usage: %s ip_address port_number backlog\n", basename(argv[0]));
 
         return 1;
@@ -42,8 +42,8 @@ int main(int argc, char* argv[]) {
     ret = listen(sock, 5);
     assert(ret != -1);
 
-    while (!stop) {
-
+    while (!stop) 
+    {
         sleep(1);
     }
 

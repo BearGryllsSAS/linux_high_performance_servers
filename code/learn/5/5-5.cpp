@@ -5,10 +5,10 @@
  * 
 */
 
-int main(int argc, char* argv[]) {
-
-    if (argc < 3) {
-
+int main(int argc, char* argv[]) 
+{
+    if (argc != 3) 
+    {
         printf("usage: %s ip_address port_number\n", argv[0]);
 
         return 1;
@@ -38,12 +38,12 @@ int main(int argc, char* argv[]) {
     socklen_t client_addrlength = sizeof(client);
 
     int connfd = accept(sock, (struct sockaddr*)&client, &client_addrlength);
-    if (connfd < 0) {
-
+    if (connfd < 0) 
+    {
         printf("error is: %d\n", errno);
     }
-    else {
-
+    else 
+    {
         char remote[INET_ADDRSTRLEN];
 
         printf("connected with ip: %s and port: %d\n", inet_ntop(AF_INET, &client.sin_addr.s_addr, remote, INET_ADDRSTRLEN), ntohs(client.sin_port));

@@ -5,10 +5,10 @@
  * 
 */
 
-int main(int argc, char* argv[]) {
-
-    if (argc < 3) {
-
+int main(int argc, char* argv[]) 
+{
+    if (argc != 3) 
+    {
         printf("usage: %s ip_address port_number\n", argv[0]);
 
         return 1;
@@ -27,14 +27,14 @@ int main(int argc, char* argv[]) {
     assert(sockfd != -1);
 
     int ret = connect(sockfd, (struct sockaddr*)&server_address, sizeof(server_address));
-    if (ret < 0) {
-
+    if (ret < 0) 
+    {
         // printf("connection failed\n");
 
         perror("connect error");
     }
-    else {
-
+    else 
+    {
         printf("send obb date out\n");
 
         const char* obb_data = "abc";

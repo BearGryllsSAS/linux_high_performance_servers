@@ -7,10 +7,10 @@
 
 #define BUF_SIZE 1024
 
-int main(int argc, char* argv[]) {
-
-    if (argc < 3) {
-
+int main(int argc, char* argv[]) 
+{
+    if (argc != 3) 
+    {
         printf("usage: %s ip_address port_number\n", argv[0]);
 
         return 1;
@@ -38,12 +38,12 @@ int main(int argc, char* argv[]) {
     socklen_t client_addrlength = sizeof(client);
 
     int connfd = accept(sock, (struct sockaddr*)&client, &client_addrlength);
-    if (connfd < 0) {
-
+    if (connfd < 0) 
+    {
         printf("error is: %d\n", errno);
     }
-    else {
-
+    else 
+    {
         char buffer[BUF_SIZE];
     
         memset(buffer, '\0', BUF_SIZE);
