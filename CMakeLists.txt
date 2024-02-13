@@ -42,6 +42,7 @@ foreach(source_file ${SRC_LIST})
     add_executable(${app}.out ${source_file})
     # 连接动态库
     # target_link_libraries(${app}.out wrap pthread)
+    target_link_libraries(${app}.out pthread)
 endforeach()
 
 # get_filename_component(app ${SRC_LIST} NAME_WE)
@@ -55,3 +56,4 @@ endforeach()
 
 # 连接动态库
 # target_link_libraries(${app}.out wrap pthread)
+target_link_libraries(${app}.out pthread)
