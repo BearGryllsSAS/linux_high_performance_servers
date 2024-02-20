@@ -31,6 +31,9 @@ file(GLOB SRC_LIST ${PROJECT_SOURCE_DIR}/src/*.cpp)
 # 根据源文件指定生成的可执行程序的名字---字符串拼接
 # string(REPLACE .c .out app ${SRC_LIST}) --- 错误
 
+# 指定编译参数选项 无效
+# add_compile_options(-lrt)
+
 # 指定要链接的动态库的路径
 # link_directories(${PROJECT_SOURCE_DIR}/lib)
 
@@ -42,7 +45,9 @@ foreach(source_file ${SRC_LIST})
     add_executable(${app}.out ${source_file})
     # 连接动态库
     # target_link_libraries(${app}.out wrap pthread)
-    target_link_libraries(${app}.out pthread)
+    target_link_libraries(${app}.out pthread rt)
+    # 链接需要的库，这里包括 -lrt
+    # target_link_libraries(${app}.out PRIVATE rt)
 endforeach()
 
 # get_filename_component(app ${SRC_LIST} NAME_WE)
@@ -56,4 +61,7 @@ endforeach()
 
 # 连接动态库
 # target_link_libraries(${app}.out wrap pthread)
-target_link_libraries(${app}.out pthread)
+target_link_libraries(${app}.out pthread rt)
+
+# 链接需要的库，这里包括 -lrt
+# target_link_libraries(${app}.out PRIVATE rt)
