@@ -1,5 +1,5 @@
 #ifndef _WRAP_
-#define _WRAP_ 
+#define _WRAP 
 
 
 
@@ -22,6 +22,9 @@
 #include <string.h>
 #include <sys/mman.h>
 #include <string.h>
+#include <sys/msg.h>
+#include <sys/shm.h>
+#include <sys/sem.h>
 #include <unistd.h>
 #include <libgen.h>
 #include <sys/select.h>
