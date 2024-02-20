@@ -11,27 +11,27 @@
  *  太难先不管
 */
 
-
+i
 #define BUFFER_SIZE 64
 class tw_timer;
 struct client_data
 {
     sockaddr_in address;
     int sockfd;
-    char buf[ BUFFER_SIZE ];
+    char buf[BUFFER_SIZE];
     tw_timer* timer;
 };
 
 class tw_timer
 {
 public:
-    tw_timer( int rot, int ts ) 
-    : next( NULL ), prev( NULL ), rotation( rot ), time_slot( ts ){}
+    tw_timer(int rot, int ts)
+        : next(NULL), prev(NULL), rotation(rot), time_slot(ts) {}
 
 public:
     int rotation;
     int time_slot;
-    void (*cb_func)( client_data* );
+    void (*cb_func)(client_data*);
     client_data* user_data;
     tw_timer* next;
     tw_timer* prev;
@@ -40,19 +40,19 @@ public:
 class time_wheel
 {
 public:
-    time_wheel() : cur_slot( 0 )
+    time_wheel() : cur_slot(0)
     {
-        for( int i = 0; i < N; ++i )
+        for (int i = 0; i < N; ++i)
         {
             slots[i] = NULL;
         }
     }
     ~time_wheel()
     {
-        for( int i = 0; i < N; ++i )
+        for (int i = 0; i < N; ++i)
         {
             tw_timer* tmp = slots[i];
-            while( tmp )
+            while (tmp)
             {
                 slots[i] = tmp->next;
                 delete tmp;
@@ -60,14 +60,14 @@ public:
             }
         }
     }
-    tw_timer* add_timer( int timeout )
+    tw_timer* add_timer(int timeout)
     {
-        if( timeout < 0 )
+        if (timeout < 0)
         {
             return NULL;
         }
         int ticks = 0;
-        if( timeout < TI )
+        if (timeout < TI)
         {
             ticks = 1;
         }
@@ -76,11 +76,11 @@ public:
             ticks = timeout / TI;
         }
         int rotation = ticks / N;
-        int ts = ( cur_slot + ( ticks % N ) ) % N;
-        tw_timer* timer = new tw_timer( rotation, ts );
-        if( !slots[ts] )
+        int ts = (cur_slot + (ticks % N)) % N;
+        tw_timer* timer = new tw_timer(rotation, ts);
+        if (!slots[ts])
         {
-            printf( "add timer, rotation is %d, ts is %d, cur_slot is %d\n", rotation, ts, cur_slot );
+            printf("add timer, rotation is %d, ts is %d, cur_slot is %d\n", rotation, ts, cur_slot);
             slots[ts] = timer;
         }
         else
@@ -91,17 +91,17 @@ public:
         }
         return timer;
     }
-    void del_timer( tw_timer* timer )
+    void del_timer(tw_timer* timer)
     {
-        if( !timer )
+        if (!timer)
         {
             return;
         }
         int ts = timer->time_slot;
-        if( timer == slots[ts] )
+        if (timer == slots[ts])
         {
             slots[ts] = slots[ts]->next;
-            if( slots[ts] )
+            if (slots[ts])
             {
                 slots[ts]->prev = NULL;
             }
@@ -110,7 +110,7 @@ public:
         else
         {
             timer->prev->next = timer->next;
-            if( timer->next )
+            if (timer->next)
             {
                 timer->next->prev = timer->prev;
             }
@@ -120,24 +120,24 @@ public:
     void tick()
     {
         tw_timer* tmp = slots[cur_slot];
-        printf( "current slot is %d\n", cur_slot );
-        while( tmp )
+        printf("current slot is %d\n", cur_slot);
+        while (tmp)
         {
-            printf( "tick the timer once\n" );
-            if( tmp->rotation > 0 )
+            printf("tick the timer once\n");
+            if (tmp->rotation > 0)
             {
                 tmp->rotation--;
                 tmp = tmp->next;
             }
             else
             {
-                tmp->cb_func( tmp->user_data );
-                if( tmp == slots[cur_slot] )
+                tmp->cb_func(tmp->user_data);
+                if (tmp == slots[cur_slot])
                 {
-                    printf( "delete header in cur_slot\n" );
+                    printf("delete header in cur_slot\n");
                     slots[cur_slot] = tmp->next;
                     delete tmp;
-                    if( slots[cur_slot] )
+                    if (slots[cur_slot])
                     {
                         slots[cur_slot]->prev = NULL;
                     }
@@ -146,7 +146,7 @@ public:
                 else
                 {
                     tmp->prev->next = tmp->next;
-                    if( tmp->next )
+                    if (tmp->next)
                     {
                         tmp->next->prev = tmp->prev;
                     }
@@ -161,7 +161,7 @@ public:
 
 private:
     static const int N = 60;
-    static const int TI = 1; 
+    static const int TI = 1;
     tw_timer* slots[N];
     int cur_slot;
 };

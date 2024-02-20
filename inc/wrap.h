@@ -9,7 +9,6 @@
 #include <netinet/in.h>
 #include <strings.h>
 #include <signal.h>
-#include <pthread.h>
 #include <sys/epoll.h>
 #include <fcntl.h>
 #include <sys/stat.h>
